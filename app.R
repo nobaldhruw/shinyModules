@@ -1,17 +1,20 @@
+options(shiny.maxRequestSize=1024*1024^2) 
+
 library(shiny)
 library(shinydashboard)
+library(shinycssloaders)
 
 header <- dashboardHeader(title="Shiny modules")
 sidebar <- dashboardSidebar(
     sidebarMenu(
-        menuItem("Histogram", tabName = "tab_histogram")
+        menuItem("Import data", tabName = "tab_data_upload")
     )
 )
 body <- dashboardBody(
     tabItems(
         tabItem(
-            tabName = "tab_histogram",
-            histogramUI("histogram")
+            tabName = "tab_data_upload",
+            dataUploadUI("data_upload")
         )
     )
 )
@@ -23,7 +26,7 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output){
-    histogramServer("histogram")
+    dataUploadServer("data_upload")
 }
 
 shinyApp(ui, server)
