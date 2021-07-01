@@ -8,7 +8,8 @@ header <- dashboardHeader(title="Shiny modules")
 sidebar <- dashboardSidebar(
     sidebarMenu(
         menuItem("Import data", tabName = "tab_data_upload"),
-        menuItem("PCA", tabName = "tab_pca")
+        menuItem("PCA", tabName = "tab_pca"),
+        menuItem("Differential expression", tabName = "tab_diffexp")
     )
 )
 body <- dashboardBody(
@@ -20,6 +21,10 @@ body <- dashboardBody(
         tabItem(
             tabName = "tab_pca",
             pcaUI("pca")
+        ),
+        tabItem(
+            tabName = "tab_diffexp",
+            diffexpUI("diffexp")
         )
     )
 )
@@ -33,6 +38,7 @@ ui <- dashboardPage(
 server <- function(input, output){
     data <- dataUploadServer("data_upload")
     pcaServer("pca", data)
+    diffexpServer("diffexp", data)
 }
 
 shinyApp(ui, server)
