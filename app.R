@@ -11,22 +11,7 @@ body <- dashboardBody(
     tabItems(
         tabItem(
             tabName = "tab_histogram",
-            fluidRow(
-                box(
-                    title = "Input", 
-                    status = "primary", 
-                    width = 3, 
-                    solidHeader = TRUE,
-                    sliderInput("num","Choose a number", min=10, max=100, value = 50, step = 5)
-                ),
-                box(
-                    title = "Output", 
-                    status = "primary", 
-                    width = 9, 
-                    solidHeader = TRUE,
-                    plotOutput("plot_histogram")
-                )
-            )
+            histogramUI("histogram")
         )
     )
 )
@@ -38,10 +23,7 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output){
-    data <- reactive({ rnorm(input$num)})
-    output$plot_histogram <- renderPlot({
-        hist(data())
-    })
+    histogramServer("histogram")
 }
 
 shinyApp(ui, server)
