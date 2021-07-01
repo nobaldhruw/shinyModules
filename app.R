@@ -7,7 +7,8 @@ library(shinycssloaders)
 header <- dashboardHeader(title="Shiny modules")
 sidebar <- dashboardSidebar(
     sidebarMenu(
-        menuItem("Import data", tabName = "tab_data_upload")
+        menuItem("Import data", tabName = "tab_data_upload"),
+        menuItem("PCA", tabName = "tab_pca")
     )
 )
 body <- dashboardBody(
@@ -15,6 +16,10 @@ body <- dashboardBody(
         tabItem(
             tabName = "tab_data_upload",
             dataUploadUI("data_upload")
+        ),
+        tabItem(
+            tabName = "tab_pca",
+            pcaUI("pca")
         )
     )
 )
@@ -26,7 +31,8 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output){
-    dataUploadServer("data_upload")
+    data <- dataUploadServer("data_upload")
+    pcaServer("pca", data)
 }
 
 shinyApp(ui, server)

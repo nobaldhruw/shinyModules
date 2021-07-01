@@ -50,6 +50,8 @@ dataUploadServer <- function(id){
         req(rv$colData)
         reactable(rv$colData, defaultPageSize=5)
       })
+      
+      return(rv)
     }
   )
 }
