@@ -48,7 +48,7 @@ diffexpServer <- function(id, data){
   moduleServer(
     id,
     function(input, output, session){
-      rv <- reactiveValues(de_result=NULL)
+      rv <- reactiveValues(de_table=NULL)
       
       observeEvent(data$exp, {
         updateSelectInput(session, "cohort_col", choices = colnames(data$colData))
@@ -61,7 +61,7 @@ diffexpServer <- function(id, data){
       })
       
       observeEvent(input$go, {
-        rv$de_result <- diff_exp_limma(data$exp, 
+        rv$de_table <- diff_exp_limma(data$exp, 
                                        data$colData, 
                                        input$cohort_col, 
                                        input$cohort_A,
@@ -70,17 +70,19 @@ diffexpServer <- function(id, data){
       })
       
       output$volcano_plot <- renderPlot({
-        req(rv$de_result)
-        volcano_plot(rv$de_result, 
+        req(rv$de_table)
+        volcano_plot(rv$de_table, 
                      log2fc_cutoff=input$abs_logFC_cutoff,
                      p_val_cutoff=input$fdr_cutoff, 
                      ngenes_to_label = input$ngenes_to_label)
       })
       
       output$diff_exp_table <- renderReactable({
-        req(rv$de_result)
-        reactable(rv$de_result, defaultPageSize = 5, searchable = TRUE)
+        req(rv$de_table)
+        reactable(rv$de_table, defaultPageSize = 5, searchable = TRUE)
       })
+      
+      return (rv)
     }
   )
 }
@@ -130,23 +132,23 @@ diff_exp_limma <- function(data_matrix, metadata, cohortCol, cohort_a, cohort_b,
 #  Volcano plot
 #
 #####################################################################
-volcano_plot <- function(de_result, log2fc_cutoff=0, p_val_cutoff=0.05, ngenes_to_label = 10) {
+volcano_plot <- function(de_table, log2fc_cutoff=0, p_val_cutoff=0.05, ngenes_to_label = 10) {
   require(ggplot2)
   require(ggrepel)
   # Add logical vector as a column (significant) to the res_tableOE
-  de_result$significance <- "not significant"
-  de_result[(abs(de_result$logFC) > log2fc_cutoff) & (de_result$P.Value <= p_val_cutoff), "significance"] <- "significant"
+  de_table$significance <- "not significant"
+  de_table[(abs(de_table$logFC) > log2fc_cutoff) & (de_table$P.Value <= p_val_cutoff), "significance"] <- "significant"
   
   # Select top N genes for labelling 
   ## Sort by ordered padj
-  de_result <- de_result[order(de_result$adj.P.Val), ] 
+  de_table <- de_table[order(de_table$adj.P.Val), ] 
   
   ## Create a column to indicate which genes to label
-  de_result$genelabels <- ""
-  de_result$genelabels[1:ngenes_to_label] <- rownames(de_result)[1:ngenes_to_label]
+  de_table$genelabels <- ""
+  de_table$genelabels[1:ngenes_to_label] <- rownames(de_table)[1:ngenes_to_label]
   
   ## Volcano plot
-  p <- ggplot(de_result, aes(x = logFC, y = -log10(adj.P.Val), fill = significance,label=genelabels)) +
+  p <- ggplot(de_table, aes(x = logFC, y = -log10(adj.P.Val), fill = significance,label=genelabels)) +
     geom_point(shape = 21, size = 3, alpha = 1.0) +
     geom_text_repel(size = 5) + 
     #geom_text(aes(label = ifelse(genelabels !=0, as.character(genelabels), "")),hjust = 0, nudge_x = 0.05, size=5, colour = "black") +

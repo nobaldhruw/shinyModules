@@ -166,6 +166,13 @@
       "Source": "Bioconductor",
       "Hash": "9bd9f991fb4ecde6adeff2fa2e401cc5"
     },
+    "askpass": {
+      "Package": "askpass",
+      "Version": "1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e8a22846fff485f0be3770c2da758713"
+    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
@@ -228,6 +235,13 @@
       "Repository": "CRAN",
       "Hash": "e75525c55c70e5f4f78c9960a4b402e9"
     },
+    "curl": {
+      "Package": "curl",
+      "Version": "4.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "022c42d49c28e95d69ca60446dbabf88"
+    },
     "cytolib": {
       "Package": "cytolib",
       "Version": "2.2.1",
@@ -254,6 +268,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "bb0eec2fe32e88d9e2836c2f73ea2077"
+    },
+    "enrichR": {
+      "Package": "enrichR",
+      "Version": "3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8cdcd06e4fa171911dc4d83feaa26467"
     },
     "fansi": {
       "Package": "fansi",
@@ -296,6 +317,13 @@
       "Repository": "CRAN",
       "Hash": "d7566c471c7b17e095dd023b9ef155ad"
     },
+    "ggrepel": {
+      "Package": "ggrepel",
+      "Version": "0.9.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "08ab869f37e6a7741a64ab9069bcb67d"
+    },
     "glue": {
       "Package": "glue",
       "Version": "1.4.2",
@@ -330,6 +358,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "b9d5d39be2150cf86538b8488334b8f8"
+    },
+    "httr": {
+      "Package": "httr",
+      "Version": "1.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a525aba14184fec243f9eaec62fbed43"
     },
     "isoband": {
       "Package": "isoband",
@@ -380,6 +415,12 @@
       "Repository": "CRAN",
       "Hash": "361811f31f71f8a617a9a68bf63f1f42"
     },
+    "limma": {
+      "Package": "limma",
+      "Version": "3.46.0",
+      "Source": "Bioconductor",
+      "Hash": "78b860aa595c42e02464243a213b3e6d"
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.1",
@@ -421,6 +462,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dd4a1423f1472a2a8e05dd2c8945c3af"
+    },
+    "openssl": {
+      "Package": "openssl",
+      "Version": "1.4.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f4dbc5a47fd93d3415249884d31d6791"
     },
     "pillar": {
       "Package": "pillar",
@@ -483,6 +531,13 @@
       "Source": "Bioconductor",
       "Hash": "4e9258b05bbcbc1093eda53aa8051264"
     },
+    "rjson": {
+      "Package": "rjson",
+      "Version": "0.2.20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7d597f982ee6263716b6a2f28efd29fa"
+    },
     "rlang": {
       "Package": "rlang",
       "Version": "0.4.10",
@@ -531,6 +586,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "947e4e02a79effa5d512473e10f41797"
+    },
+    "sys": {
+      "Package": "sys",
+      "Version": "3.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b227d13e29222b4574486cfcbde077fa"
     },
     "tibble": {
       "Package": "tibble",
