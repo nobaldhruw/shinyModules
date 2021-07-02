@@ -3,10 +3,10 @@ diffexpUI <- function(id){
   tagList(
     fluidRow(
       box(
-        title = "Input",
+        title = "Differential expression inputs",
         solidHeader = TRUE,
         status = "primary",
-        width = 3,
+        width = 6,
         selectInput(ns("cohort_col"), "Choose cohort column", choices = NULL),
         selectInput(ns("cohort_A"), "Choose cohort A", choices = NULL, multiple = TRUE),
         selectInput(ns("cohort_B"), "Choose cohort B", choices = NULL, multiple = TRUE),
@@ -14,10 +14,21 @@ diffexpUI <- function(id){
         actionButton(ns("go"), "Go!")
       ),
       box(
+        title = "Volcano plot inputs",
+        solidHeader = TRUE,
+        status = "warning",
+        width = 6,
+        sliderInput(ns("abs_logFC_cutoff"),"Absolute log2FC cutoff", min=0, max=4, step=0.05, value=1.0),
+        numericInput(ns("fdr_cutoff"),"FDR cutoff", min=0, max=1, step=0.05, value=0.05),
+        numericInput(ns("ngenes_to_label"),"No. of top genes to label", min=0, max=20, step=1, value=10)
+      )
+    ),
+    fluidRow(
+      box(
         title = "Volcano plot",
         solidHeader = TRUE,
         status = "primary",
-        width = 9,
+        width = 12,
         plotOutput(ns("volcano_plot"))
       )
     ),
@@ -60,12 +71,15 @@ diffexpServer <- function(id, data){
       
       output$volcano_plot <- renderPlot({
         req(rv$de_result)
-        volcano_plot(rv$de_result, log2fc_cutoff=0, p_val_cutoff=0.05, ngenes_to_label = 10)
+        volcano_plot(rv$de_result, 
+                     log2fc_cutoff=input$abs_logFC_cutoff,
+                     p_val_cutoff=input$fdr_cutoff, 
+                     ngenes_to_label = input$ngenes_to_label)
       })
       
       output$diff_exp_table <- renderReactable({
         req(rv$de_result)
-        reactable(rv$de_result, defaultPageSize = 5)
+        reactable(rv$de_result, defaultPageSize = 5, searchable = TRUE)
       })
     }
   )
